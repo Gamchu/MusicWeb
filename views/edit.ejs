@@ -1,0 +1,278 @@
+<%- include ('partials/header.ejs') %>
+
+    <div class="navigation">
+        <ul class="nav">
+            <li class="list">
+                <a href="/songs/new">
+                    <span class="icon">
+                        <ion-icon name="musical-notes"></ion-icon>
+                    </span>
+                    <span class="title">Add song</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/artist/new">
+                    <span class="icon">
+                        <ion-icon name="person-add"></ion-icon>
+                    </span>
+                    <span class="title">Add Artist</span>
+                </a>
+            </li>
+            <li class="list active">
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="settings"></ion-icon>
+                    </span>
+                    <span class="title">Edit</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="head-edit">
+        Song
+    </div>
+    <div class="show_soung_canedit">
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">TiTLE</th>
+                    <th scope="col">ADDED BY</th>
+                    <th scope="col">
+                        <ion-icon name="time"></ion-icon>
+                    </th>
+                    <th scope="col">EDiT</th>
+                    <th scope="col">DELETE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% let modal=0 %>
+                    <% x=1 %>
+                        <% songedit.forEach(function(songedit){ %>
+
+                            <tr>
+                                <th scope="row">
+                                    <%= x %>
+                                </th>
+                                <% x++ %>
+                                    <td class="title_in_edit">
+                                        <div class="all_edit_de d-flex">
+                                            <span>
+                                                <img class="image_in_edit" src="<%= songedit.image %>">
+                                            </span>
+
+                                            <div class="name_artist_edit">
+                                                <div>
+                                                    <span class="name_in_edit">
+                                                        <%= songedit.name %>
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span class="artist_in_edit">
+                                                        <%= songedit.artist.artistname %>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td>Admin</td>
+                                    <td>3.12</td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                                            data-bs-target="#songsmodal<%= modal%>">
+                                            <ion-icon name="create"></ion-icon>
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="songsmodal<%= modal%>" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <% modal++%>
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Edit Song</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="/songs/edit/<%= songedit._id %>" method="POST"
+                                                                enctype="multipart/form-data">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Song name</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="song_edit_name"
+                                                                        placeholder="<%= songedit.name %>" ,
+                                                                        value="<%= songedit.name %>">
+                                                                </div>
+
+                                                                <label for="exampleDataList" class="form-label">Artist
+                                                                    name</label>
+                                                                <input class="form-control" list="datalistOptions"
+                                                                    name="song_edit_artist" id="exampleDataList"
+                                                                    placeholder="<%= songedit.artist.artistname %>" ,
+                                                                    value="<%= songedit.artist.artistname %>">
+                                                                <datalist id="datalistOptions">
+                                                                    <% artistedit.forEach(function(artistedit){ %>
+                                                                        <option value="<%= artistedit.artistname%>">
+                                                                            <% }); %>
+                                                                </datalist>
+
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Description</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="song_edit_description"
+                                                                        placeholder="<%= songedit.descriptsong %>" ,
+                                                                        value="<%= songedit.descriptsong %>">
+
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Lyrics</label>
+                                                                    <img src="<%= songedit.image %>" class="pb-3"
+                                                                        height="100px">
+                                                                    <textarea class="form-control"
+                                                                        name="song_edit_lyrics" rows="3"></textarea>
+
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="formFile" class="form-label">Picture
+                                                                        song</label>
+                                                                    <input class="form-control" name="image" type="file"
+                                                                        id="formFile" accept="'image/*">
+                                                                </div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save
+                                                                changes</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <form action="/songs/<%= songedit._id %>?_method=DELETE" method="POST">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </td>
+                            </tr>
+                            <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="head-edit">
+        Artist
+    </div>
+
+    <div class="show_soung_canedit">
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ARTiST</th>
+                    <th scope="col">ADDED BY</th>
+                    <th scope="col">EDiT</th>
+                    <th scope="col">DELETE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%modal=0 %>
+                    <% x=1 %>
+                        <% artistedit.forEach(function(artistedit){ %>
+                            <tr>
+                                <th scope="row">
+                                    <%= x %>
+                                </th>
+                                <% x++ %>
+                                    <td class="title_in_edit">
+                                        <div class="all_edit_de d-flex">
+                                            <span>
+                                                <img class="image_in_edit" src="<%= artistedit.image %>">
+                                            </span>
+
+                                            <div class="name_artist_edit">
+                                                <div>
+                                                    <span class="name_in_edit">
+                                                        <%= artistedit.artistname %>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td>Admin</td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                                            data-bs-target="#artistmodal<%= modal%>">
+                                            <ion-icon name="create"></ion-icon>
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="artistmodal<%= modal%>" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <% modal++%>
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Edit Artist</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="/artist/edit/<%= artistedit._id %>"
+                                                                method="POST" enctype="multipart/form-data">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Artist name</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="artist_edit_name"
+                                                                        placeholder="<%= artistedit.artistname %>" ,
+                                                                        value="<%= artistedit.artistname %>">
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Artist Description</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="artist_edit_description"
+                                                                        placeholder="<%= artistedit.descriptartist %>" ,
+                                                                        value="<%= artistedit.descriptartist %>">
+
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="formFile" class="form-label">Artist
+                                                                        Picture</label>
+                                                                    <input class="form-control" name="image" type="file"
+                                                                        id="formFile" accept="'image/*">
+                                                                </div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save
+                                                                changes</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <form action="/artist/<%= artistedit._id %>?_method=DELETE" method="POST">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                    </td>
+                            </tr>
+                            <% }); %>
+            </tbody>
+        </table>
+    </div>
+    <%- include ('partials/footeronly.ejs') %>

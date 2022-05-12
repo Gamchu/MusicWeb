@@ -1,0 +1,223 @@
+<%- include ('partials/header.ejs') %>
+    <% let Time=new Date(); let Hour=Time.getHours(); %>
+
+        <div class="wrapper">
+            <main>
+                <%if(Hour>= 0 && Hour < 12){ %>
+                        <h1>Good Morning</h1>
+                        <% } %>
+                            <% if(Hour>= 12 && Hour < 18){ %>
+                                    <h1>Good Afternoon</h1>
+                                    <% } %>
+                                        <% if(Hour>= 18 && Hour <= 23){ %>
+                                                <h1>Good Evening</h1>
+                                                <% } %>
+            </main>
+
+            <div class="navigation">
+                <ul class="nav">
+                    <li class="list active">
+                        <a href="/">
+                            <span class="icon">
+                                <ion-icon name="home-sharp"></ion-icon>
+                            </span>
+                            <span class="title">Home</span>
+                        </a>
+                    </li>
+                    <li class="list">
+                        <a href="/search">
+                            <span class="icon">
+                                <ion-icon name="search"></ion-icon>
+                            </span>
+                            <span class="title">Search</span>
+                        </a>
+                    </li>
+                    <li class="list">
+                        <a href="/follow">
+                            <span class="icon">
+                                <ion-icon name="menu"></ion-icon>
+                            </span>
+                            <span class="title">Follow</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <a href="/songs/new" class="btn btn-primary my-2">Add new songs</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="album py-6 bg-content">
+            <div class="box-head">
+                <div class="fw-light">Today music</div>
+            </div>
+            <div class="home-music">
+                <div class="row row-col-1 row-cols-sm-2 row-cols-md-6 g-4">
+                    <% allsong.forEach(function(allsong){ %>
+                        <div class="col-sm-1 box-content">
+                            <div class="card shadow-sm">
+                                <img src="<%= allsong.image %>" class="landing-img">
+
+                                <div class="card-body">
+                                    <span>&nbsp;</span>
+                                    <div class="d-flex">
+                                        <p class="card-text">
+                                            <a href="/songs/detail/<%= allsong._id %>"
+                                                class="text-decoration-none Sname">
+                                                <%= allsong.name %>
+                                            </a>
+                                        </p>
+
+                                        <div class="play-button-music">
+                                            <div class="block">
+
+                                                <div class="player-btn">
+
+                                                    <div class="player-btn-particles">
+                                                        <div class="player-btn-particle player-btn-particle--one"></div>
+                                                        <div class="player-btn-particle player-btn-particle--second">
+                                                        </div>
+                                                        <div class="player-btn-particle player-btn-particle--third">
+                                                        </div>
+                                                        <div class="player-btn-particle player-btn-particle--fourth">
+                                                        </div>
+                                                    </div>
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"
+                                                        class="player-btn-icon">
+                                                        <path class="svg-play" fill="transparent"
+                                                            d="M90 50 L30 15 L30 160 L170 100 L130 75" />
+                                                    </svg>
+
+                                                </div>
+
+                                                <audio id="track">
+                                                    <source src="http://dl2.mp3party.net/online/3644.mp3"
+                                                        type="audio/mpeg">
+                                                </audio>
+
+                                            </div>
+
+                                            <!-- Filter -->
+                                            <svg class="svg-hidden" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                                                <defs>
+                                                    <filter id="fancy-goo">
+                                                        <feGaussianBlur in="SourceGraphic" stdDeviation="10"
+                                                            result="blur" />
+                                                        <feColorMatrix in="blur" mode="matrix"
+                                                            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+                                                            result="goo" />
+                                                        <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+                                                    </filter>
+                                                </defs>
+                                            </svg>
+                                        </div>
+
+                                        <% if(currentUser) { %>
+                                            <% if(fsuser.includes(allsong._id)) { %>
+                                                <form action="/follow/song/<%= allsong._id %>" method="POST">
+                                                    <button type="submit" class="favbtn">
+                                                        <img src="/apicture/heart.png" class="heartfav">
+                                                    </button>
+                                                </form>
+                                                <% } else { %>
+                                                    <form action="/follow/song/<%= allsong._id %>" method="POST">
+                                                        <button type="submit" class="favbtn">
+                                                            <img src="/apicture/unheart.png" class="heartfav">
+                                                        </button>
+                                                    </form>
+                                                    <% } %>
+                                                        <% } else { %>
+                                                            <form action="/follow/song/<%= allsong._id %>"
+                                                                method="POST">
+                                                                <button type="submit" class="favbtn">
+                                                                    <img src="/apicture/unheart.png" class="heartfav">
+                                                                </button>
+                                                            </form>
+                                                            <% } %>
+
+                                    </div>
+                                    <p class="card-text Aname">
+                                        <%= allsong.artist.artistname %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <% }); %>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-artist">
+            <div class="Artist-head">Artist</div>
+        </div>
+
+        <!-- Artist -->
+        <div class="album py-6 bg-content">
+            <div class="box-head">
+                <div class="fw-light">Top Artist</div>
+            </div>
+            <div class="home-music">
+                <div class="row row-col-1 row-cols-sm-2 row-cols-md-6 g-4">
+                    <% allartist.forEach(function(allartist){ %>
+                        <div class="col-sm-1 box-content">
+                            <div class="card shadow-sm">
+                                <img src="<%= allartist.image %>" class="landing-img">
+
+                                <div class="card-body">
+                                    <span>&nbsp;</span>
+                                    <div class="d-flex">
+                                        <p class="card-text">
+                                            <a href="/artist/detail/<%= allartist._id %>"
+                                                class="text-decoration-none Sname">
+                                                <%= allartist.artistname %>
+                                            </a>
+                                        </p>
+                                        <!-- <div class="btn-play" onclick="playVideo();">
+                                            <div class="circle">
+                                                <div class="triangle"></div>
+                                            </div>
+                                        </div> -->
+
+                                        <% if(currentUser) { %>
+                                            <% if(fauser.includes(allartist._id)) { %>
+                                                <form action="/follow/artist/<%= allartist._id %>" method="POST">
+                                                    <button type="submit" class="favbtn">
+                                                        <img src="/apicture/heart.png" class="heartfav">
+                                                    </button>
+                                                </form>
+                                                <% } else { %>
+                                                    <form action="/follow/artist/<%= allartist._id %>" method="POST">
+                                                        <button type="submit" class="favbtn">
+                                                            <img src="/apicture/unheart.png" class="heartfav">
+                                                        </button>
+                                                    </form>
+                                                    <% } %>
+                                                        <% } else { %>
+                                                            <form action="/follow/artist/<%= allartist._id %>"
+                                                                method="POST">
+                                                                <button type="submit" class="favbtn">
+                                                                    <img src="/apicture/unheart.png" class="heartfav">
+                                                                </button>
+                                                            </form>
+                                                            <% } %>
+                                    </div>
+                                    <p class="card-text Aname">
+                                        <%= otherartist.descriptartist %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <% }); %>
+                </div>
+            </div>
+        </div>
+
+
+
+        <%- include ('partials/footer.ejs') %>

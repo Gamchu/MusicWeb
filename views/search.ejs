@@ -1,0 +1,37 @@
+<%- include ('partials/header.ejs') %>
+    <div class="navigation">
+        <ul class="nav">
+            <li class="list">
+                <a href="/">
+                    <span class="icon">
+                        <ion-icon name="home-sharp"></ion-icon>
+                    </span>
+                    <span class="title">Home</span>
+                </a>
+            </li>
+            <li class="list active">
+                <a href="/search">
+                    <span class="icon">
+                        <ion-icon name="search"></ion-icon>
+                    </span>
+                    <span class="title">Search</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/follow">
+                    <span class="icon">
+                        <ion-icon name="menu"></ion-icon>
+                    </span>
+                    <span class="title">Follow</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <form class="search-form"method="post">
+        <input type="text" class="textbox" placeholder="Search">
+        <input title="Search" value="" type="submit" class="button">
+    </form>
+
+
+    <%- include ('partials/footer.ejs') %>

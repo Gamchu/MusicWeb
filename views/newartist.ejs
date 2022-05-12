@@ -1,0 +1,54 @@
+<%- include ('partials/headeronly.ejs') %>
+    <div class="container">
+        <h1 class="Edit-head">Add New Artist</h1>
+        <form action="/artist/new" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label">Artist name</label>
+                <input type="text" class="form-control" name="nameartist" placeholder="Song name">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <input type="text" class="form-control" name="descriptartist" placeholder="Description">
+            </div>
+
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Picture Artist</label>
+                <input class="form-control" name="image" type="file" id="formFile" accept="'image/*">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a type="back" class="btn" href="/">Home</a>
+        </form>
+    </div>
+
+    <div class="navigation">
+        <ul class="nav">
+            <li class="list">
+                <a href="/songs/new">
+                    <span class="icon">
+                        <ion-icon name="musical-notes"></ion-icon>
+                    </span>
+                    <span class="title">Add song</span>
+                </a>
+            </li>
+            <li class="list active">
+                <a href="/artist/new">
+                    <span class="icon">
+                        <ion-icon name="person-add"></ion-icon>
+                    </span>
+                    <span class="title">Add Artist</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/songs/edit">
+                    <span class="icon">
+                        <ion-icon name="settings"></ion-icon>
+                    </span>
+                    <span class="title">Edit</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <%- include ('partials/footeronly.ejs') %>
