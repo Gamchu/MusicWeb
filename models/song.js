@@ -5,6 +5,7 @@ const songSchema = new mongoose.Schema({
     descriptsong:String,
     image: String,
     lyrics: String,
+    mp3: String,
     artist: {
         type: mongoose.Schema.Types.ObjectId,
         ref:'Artist'

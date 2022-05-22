@@ -17,6 +17,7 @@ const   express     = require('express'),
 const   indexRoutes     = require('./routes/index'),
         artistRoutes    = require('./routes/artist'),
         songRoutes      = require('./routes/song'),
+        searchRoutes    = require('./routes/search'),
         userRoutes      = require('./routes/user');
 
 mongoose.connect('mongodb://localhost/Yfitops'); //connect DB
@@ -47,22 +48,11 @@ app.use(function(req,res,next){
     next();
 });
 
-// app.get('/library', function(req, res){
-//     res.render('library.ejs');
-// })
-
-app.get('/search', function(req, res){
-    res.render('search.ejs');
-});
-
-// app.get('/artist/new', function(req, res){
-//     res.render('newartist.ejs');
-// });
-
 app.use('/', indexRoutes);
 app.use('/songs', songRoutes);
 app.use('/artist', artistRoutes);
 app.use('/user', userRoutes);
+app.use('/search', searchRoutes);
 
 app.listen(3000, function () {
     console.log("Server Activated");

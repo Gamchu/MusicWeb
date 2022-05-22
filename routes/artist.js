@@ -19,6 +19,7 @@ const express = require('express'),
     upload = multer({ storage: storage, fileFilter: imageFilter }),
     middleware = require('../middleware'),
     Song = require('../models/song'),
+    User = require('../models/user'),
     Artist = require('../models/artist');
 
 router.get('/new', function (req, res) {
@@ -47,8 +48,18 @@ router.get('/detail/:id', function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render('artistdetail.ejs', { artistde: artistdetail }); //รายละเอียด artist
-            // console.log(songdetail.artist);
+            if (req.isAuthenticated()) {
+                User.findById(req.user._id, function (err, founduser) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.render('artistdetail.ejs', { artistde: artistdetail, faart: founduser.favartist, fasong: founduser.favsong });
+                        // console.log(founduser);
+                    }
+                })
+            } else {
+                res.render('artistdetail.ejs', { artistde: artistdetail, });
+            }
         }
     });
 });
@@ -78,7 +89,7 @@ router.delete('/:id', function (req, res) {
             console.log(err);
             res.redirect('back');
         } else {
-            Song.deleteMany().where('artist').equals(req.params.id).exec(function (err){
+            Song.deleteMany().where('artist').equals(req.params.id).exec(function (err) {
                 if (err) {
                     console.log(err);
                 } else {

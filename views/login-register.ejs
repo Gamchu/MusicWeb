@@ -1,0 +1,51 @@
+<%- include ('partials/headeronly.ejs') %>
+	<div class="interface">
+		<div class="container-logre" id="container">
+			<div class="form-container sign-up-container">
+				<form class="form-logre" action="/login-register/register" method="POST">
+					<div class="head1">Create Account</div>
+					<div class="social-container">
+						<a class="link" href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+						<a class="link" href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+					</div>
+					<span class="span">or use your email for registration</span>
+					<input class="input-logre" type="text" name="username" placeholder="Username" />
+					<input class="input-logre" type="text" name="firstname" placeholder="Firstame" />
+					<input class="input-logre" type="text" name="lastname" placeholder="Lastname" />
+					<input class="input-logre" type="email" name="email" placeholder="Email" />
+					<input class="input-logre" type="password" name="password" placeholder="Password" />
+					<!-- <input class="input-logre" type="text" name="adminCode" placeholder="Admin" /> -->
+					<button class="btn-login">Sign Up</button>
+				</form>
+			</div>
+			<div class="form-container sign-in-container">
+				<form class="form-logre" action="/login-register/login" method="POST">
+					<div class="head1">Sign in</div>
+					<div class="social-container">
+						<a class="link" href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+						<a class="link" href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+					</div>
+					<span class="span">or use your account</span>
+					<input class="input-logre" type="name" name="username" placeholder="Username" required/>
+					<input class="input-logre" type="password" name="password" placeholder="Password" required/>
+					<a href="/">Home</a>
+					<button class="btn-login">Sign In</button>
+				</form>
+			</div>
+			<div class="overlay-container">
+				<div class="overlay">
+					<div class="overlay-panel overlay-left">
+						<div class="head1">Welcome Back!</div>
+						<div class="pp">To keep connected with us please login with your personal info</div>
+						<button class="btn-login ghost" id="signIn">Sign In</button>
+					</div>
+					<div class="overlay-panel overlay-right">
+						<div class="head1">Hello, Friend!</div>
+						<div class="pp">Enter your personal details and start journey with us</div>
+						<button class="btn-login ghost" id="signUp">Sign Up</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%- include ('partials/footeronly.ejs') %>

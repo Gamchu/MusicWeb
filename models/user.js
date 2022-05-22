@@ -3,7 +3,11 @@ const   mongoose = require('mongoose'),
 
 const userSchema = new mongoose.Schema({
     username: String,
+    firstname: String,
+    lastname: String,
+    email: String,
     password: String,
+    profileImage: String,
     favsong: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Song'
@@ -11,7 +15,8 @@ const userSchema = new mongoose.Schema({
     favartist: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Artist'
-    }]
+    }],
+    isAdmin: {type: Boolean, default: false}
 });
 
 userSchema.plugin(passportLocalMongoose);

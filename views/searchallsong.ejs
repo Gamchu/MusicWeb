@@ -1,0 +1,167 @@
+<%- include ('partials/headeroverflowcss.ejs') %>
+    <div class="navigation">
+        <ul class="nav">
+            <li class="list">
+                <a href="/">
+                    <span class="icon">
+                        <ion-icon name="home-sharp"></ion-icon>
+                    </span>
+                    <span class="title">Home</span>
+                </a>
+            </li>
+            <li class="list active">
+                <a href="/search">
+                    <span class="icon">
+                        <ion-icon name="search"></ion-icon>
+                    </span>
+                    <span class="title">Search</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/follow">
+                    <span class="icon">
+                        <ion-icon name="menu"></ion-icon>
+                    </span>
+                    <span class="title">Follow</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <form class="search-form" method="post" action="/search">
+        <input type="text" class="textbox" placeholder="Artist, Song" name="keyword">
+        <input title="Search" value="" type="submit" class="button">
+    </form>
+
+    <!-- show result -->
+    <% let nub=1 %>
+        <% if(SearchSong.length> 0){ %>
+            <div class="album mt-2 search-allsong-result">
+                <div class="container-fluid py-4">
+                    <div class="d-flex">
+                        <h1 class="title-search-head bg-search">SONGS
+                            <span class="thinword">(<%= SearchSong.length %>)</span>
+                        </h1>
+                    </div>
+                    <table class="bg-search text-white mb-0 sortable">
+                        <% if(SearchSong.length> 0){ %>
+                            <thead class="title-top">
+                                <tr class="head-tr">
+                                    <th scope="col">
+                                        #
+                                    </th>
+                                    <th scope="col">
+                                        Title
+                                        <i class="fa-solid fa-sort"></i>
+                                    </th>
+                                    <th scope="col">
+                                        Artist
+                                        <i class="fa-solid fa-sort"></i>
+                                    </th>
+                                    <th scope="col">
+                                        <i class="fa-solid fa-sort"></i>
+                                        <i class="fa-solid fa-clock"></i>
+                                    </th>
+                                    <th scope="col">
+                                        <i class="font-weight-normal">control</i>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <% } %>
+                                <tbody>
+                                    <% x=1 %>
+                                        <% SearchSong.forEach(function(SearchSong){ %>
+                                            <tr>
+                                                <% nub++ %>
+                                                    <td>
+                                                        <div class="number">
+                                                            <%= x %>
+                                                        </div>
+                                                    </td>
+                                                    <% x++ %>
+                                                        <td>
+                                                            <div class="d-flex">
+                                                                <img class="songimg-admin song--img__data img-body"
+                                                                    src="<%= SearchSong.image %>">
+                                                                <a class="text-white text-decoration-none song--name__data"
+                                                                    href="/songs/detail/<%= SearchSong._id %>">
+                                                                    <%= SearchSong.name %>
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="song--artist__data">
+                                                                <a class="text-white text-decoration-none song-body"
+                                                                    href="/artist/<%= SearchSong.artist._id %>">
+                                                                    <%= SearchSong.artist.artistname %>
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="pt-4">
+                                                                <span class="end-time"></span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="option my-4 mx-2 d-flex">
+                                                                <% if(!currentUser){ %>
+                                                                    <a href="/login"
+                                                                        class="text-decoration-none star-color">
+                                                                        <i class="fa-solid fa-play"></i>
+                                                                    </a>
+                                                                    <div id="table--playicon">
+                                                                        <audio id="track">
+                                                                            <source src="<%=SearchSong.mp3 %>" type="audio/mp3">
+                                                                        </audio>
+                                                                    </div>
+                                                                    <% } else { %>
+                                                                        <div>
+                                                                            <i class="fa-solid fa-play"
+                                                                                id="table--playicon"></i>
+                                                                                <audio id="track">
+                                                                                    <source src="<%=SearchSong.mp3 %>" type="audio/mp3">
+                                                                                </audio>
+                                                                        </div>
+                                                                        <% } %>
+                                                                            <% if(usersong.includes(SearchSong._id)){ %>
+                                                                                <form
+                                                                                    action="/follow/song/<%= SearchSong._id %>"
+                                                                                    method="POST">
+                                                                                    <button type="submit"
+                                                                                        class="favbtn">
+                                                                                        <img src="/apicture/heart.png"
+                                                                                            class="searchfav">
+                                                                                    </button>
+                                                                                </form>
+                                                                                <% } else { %>
+                                                                                    <form
+                                                                                        action="/follow/song/<%= SearchSong._id %>"
+                                                                                        method="POST">
+                                                                                        <button type="submit"
+                                                                                            class="favbtn">
+                                                                                            <img src="/apicture/unheart.png"
+                                                                                                class="searchfav">
+                                                                                        </button>
+                                                                                    </form>
+                                                                                    <% } %>
+                                                            </div>
+                                                        </td>
+                                            </tr>
+                                            <% }) %>
+                                </tbody>
+                    </table>
+                </div>
+            </div>
+            <% } %>
+                <% if(SearchSong.length===0){ %>
+                    <div class="squarebox mt-3">
+                        <div class="t text-white">
+                            <img class="py-2" src="/image/icons/scope.png" width="30px">
+                            <h2>0 Song for " <%= keyword %> "</h2>
+                        </div>
+                    </div>
+                    <% } %>
+                        </div>
+                        </div>
+
+                        <%- include ('partials/footer.ejs') %>

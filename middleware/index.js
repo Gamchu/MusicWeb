@@ -5,7 +5,7 @@ middlewareObj.isLoggedIn = function(req, res, next){
         return next();
     }
     req.flash('error', "You do not have permission to do this action!");
-    res.redirect('/login')
+    res.redirect('/login-register')
 }
 
 module.exports = middlewareObj;

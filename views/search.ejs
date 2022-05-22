@@ -28,10 +28,9 @@
         </ul>
     </div>
 
-    <form class="search-form"method="post">
-        <input type="text" class="textbox" placeholder="Search">
+    <form class="search-form" method="post" action="/search">
+        <input type="text" class="textbox" placeholder="Artist, Song" name="keyword">
         <input title="Search" value="" type="submit" class="button">
     </form>
-
 
     <%- include ('partials/footer.ejs') %>

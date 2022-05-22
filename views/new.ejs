@@ -1,6 +1,6 @@
-<%- include ('partials/headeronly.ejs') %>
+<%- include ('partials/header.ejs') %>
+    <h1 class="head-edit">Add New Songs</h1>
     <div class="container">
-        <h1 class="Edit-head">Add New songs</h1>
         <form action="/songs/new" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Song name</label>
@@ -8,11 +8,12 @@
             </div>
 
             <label for="exampleDataList" class="form-label">Artist name</label>
-            <input class="form-control" list="datalistOptions" name="newsongartist" id="exampleDataList" placeholder="Type to search...">
+            <input class="form-control" list="datalistOptions" name="newsongartist" id="exampleDataList"
+                placeholder="Type to search...">
             <datalist id="datalistOptions">
                 <% artistih.forEach(function(artistih){ %>
-                <option value="<%= artistih.artistname%>">
-                    <% }); %>
+                    <option value="<%= artistih.artistname%>">
+                        <% }); %>
             </datalist>
 
             <div class="mb-3">

@@ -43,21 +43,56 @@
                         <% followlikesong.forEach(function(followlikesong){ %>
                             <div class="col-sm-1 box-content">
                                 <div class="card shadow-sm">
-                                    <img src="<%= followlikesong.image %>" class="landing-img">
+                                    <img src="<%= followlikesong.image %>" class="landing-img img-body">
 
                                     <div class="card-body p-3">
-                                        <span class="Bookkie">&nbsp;</span>
+                                        <span>&nbsp;</span>
                                         <div class="d-flex">
                                             <p class="card-text">
                                                 <a href="/songs/detail/<%= followlikesong._id %>"
-                                                    class="text-decoration-none Sname">
+                                                    class="text-decoration-none Sname song-body">
                                                     <%= followlikesong.name %>
                                                 </a>
                                             </p>
-                                            <div class="btn-play" onclick="playVideo();">
-                                                <div class="circle">
-                                                    <div class="triangle"></div>
+
+                                            <div class="play-button-music">
+                                                <div class="block">
+
+                                                    <div class="player-btn" id="playnow">
+
+                                                        <div class="player-btn-particles">
+                                                            <div class="player-btn-particle player-btn-particle--one">
+                                                            </div>
+                                                        </div>
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"
+                                                            class="player-btn-icon">
+                                                            <path class="svg-play to-play" fill="transparent"
+                                                                d="M90 50 L30 15 L30 160 L170 100 L130 75" />
+                                                        </svg>
+
+                                                    </div>
+
+                                                    <audio id="track">
+                                                        <source src="<%=followlikesong.mp3 %>" type="audio/mp3">
+                                                    </audio>
+
                                                 </div>
+
+                                                <!-- Filter -->
+                                                <svg class="svg-hidden" xmlns="http://www.w3.org/2000/svg"
+                                                    version="1.1">
+                                                    <defs>
+                                                        <filter id="fancy-goo">
+                                                            <feGaussianBlur in="SourceGraphic" stdDeviation="10"
+                                                                result="blur" />
+                                                            <feColorMatrix in="blur" mode="matrix"
+                                                                values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+                                                                result="goo" />
+                                                            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+                                                        </filter>
+                                                    </defs>
+                                                </svg>
                                             </div>
 
                                             <div class="fav-heart">
@@ -68,7 +103,7 @@
                                                 </form>
                                             </div>
                                         </div>
-                                        <p class="card-text Aname">
+                                        <p class="card-text Aname art-body">
                                             <%= followlikesong.artist.artistname %>
                                         </p>
                                     </div>
@@ -78,12 +113,14 @@
                     </div>
                 </div>
                 <% } %>
+
                     <!-- Fav Artist -->
                     <div class="box-head">
                         <div class="fw-light">Artsit</div>
                     </div>
-                    <% if(followlikeartist == 0) { %>
-                        <h1 class="caution">Don't have favorite artists to show here! <a href="/">Add</a> favorite artists to show.</h1>
+                    <% if(followlikeartist==0) { %>
+                        <h1 class="caution">Don't have favorite artists to show here! <a href="/">Add</a> favorite
+                            artists to show.</h1>
                         <% } else { %>
                             <div class="home-music">
                                 <div class="row row-col-1 row-cols-sm-2 row-cols-md-6 g-4">
@@ -93,7 +130,7 @@
                                                 <img src="<%= followlikeartist.image %>" class="landing-img">
 
                                                 <div class="card-body p-3">
-                                                    <span class="Bookkie">&nbsp;</span>
+                                                    <span>&nbsp;</span>
                                                     <div class="d-flex">
                                                         <p class="card-text">
                                                             <a href="/artist/detail/<%= followlikeartist._id %>"
@@ -117,8 +154,8 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <% }); %>
                                 </div>
-                                <% }); %>
                             </div>
                             <% } %>
     </div>

@@ -17,6 +17,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,900;1,100&display=swap"
         rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+
     <script src="https://kit.fontawesome.com/cc43f14e34.js" crossorigin="anonymous"></script>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js" defer></script>
@@ -27,11 +29,12 @@
         crossorigin="anonymous"></script>
 
     <script src="script.js" defer></script>
+    <script src="script-login.js" defer></script>
+    <link rel="stylesheet" href="/stylesheets/main.css">
     <title>Yfitops</title>
 </head>
 
-<body>
-
+<body class="overflow-y">
     <% if(error && error.length>0){ %>
         <div class='alert alert-danger' role='alert'>
             <%= error %>

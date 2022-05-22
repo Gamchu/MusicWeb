@@ -9,42 +9,30 @@ const express = require('express'),
     middleware = require('../middleware');
 
 //ทุกคนที่เข้ามาจะเข้ามาหน้านี้
-router.get("/", middleware.isLoggedIn, function (req, res) {
-    Song.findById(req.params.id).populate('artist').exec(function (err, songByid) {
+router.get("/", function (req, res) {
+    Song.find({}).populate('artist').exec(function (err, allsong) {
         if (err) {
             console.log(err);
         } else {
-            Song.find({}).populate('artist').exec(function (err, allsong) {
+            Artist.find({}).exec(function (err, allartist) {
                 if (err) {
                     console.log(err);
                 } else {
-                    Artist.find({}).exec(function (err, allartist) {
+                    Artist.aggregate([{ $sample: { size: 3 } }]).exec(function (err, someartist) {
                         if (err) {
                             console.log(err);
                         } else {
-                            Song.aggregate([{ $sample: { size: 3 } }]).exec(function (err, somesong) {
-                                if (err) {
-                                    console.log(err);
-                                } else {
-                                    Artist.aggregate([{ $sample: { size: 3 } }]).exec(function (err, someartist) {
-                                        if (err) {
-                                            console.log(err);
-                                        } else {
-                                            if (req.isAuthenticated()) {
-                                                User.findById(req.user._id, function (err, founduser) {
-                                                    if (err) {
-                                                        console.log(err);
-                                                    } else {
-                                                        res.render("landing.ejs", { fsong: songByid, othersong: somesong, otherartist: someartist, fsuser: founduser.favsong, fauser: founduser.favartist, allsong: allsong, allartist:allartist });
-                                                    }
-                                                });
-                                            } else {
-                                                res.render("landing.ejs", { fsong: songByid, othersong: somesong, otherartist: someartist, allsong: allsong, allartist:allartist });
-                                            }
-                                        }
-                                    });
-                                }
-                            });
+                            if (req.isAuthenticated()) {
+                                User.findById(req.user._id, function (err, founduser) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        res.render("landing.ejs", { otherartist: someartist, fsuser: founduser.favsong, fauser: founduser.favartist, allsong: allsong, allartist: allartist });
+                                    }
+                                });
+                            } else {
+                                res.render("landing.ejs", { otherartist: someartist, allsong: allsong, allartist: allartist });
+                            }
                         }
                     });
                 }
@@ -54,16 +42,25 @@ router.get("/", middleware.isLoggedIn, function (req, res) {
 });
 
 //login and register part
-router.get('/register', function (req, res) {
-    res.render('register.ejs');
+router.get('/login-register', function (req, res) {
+    res.render('login-register.ejs');
 });
 
-router.post('/register', function (req, res) {
-    let newUser = new User({ username: req.body.username });
+router.post('/login-register/register', function (req, res) {
+    let newUser = new User({
+        username: req.body.username,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: req.body.password
+    });
+    if (req.body.adminCode === 'Admin') {
+        newUser.isAdmin = true;
+    }
     User.register(newUser, req.body.password, function (err, user) {
         if (err) {
             req.flash('error', err.message);
-            return res.redirect('/register');
+            return res.redirect('/login-register');
         } else {
             passport.authenticate('local')(req, res, function () {
                 req.flash('success', user.username + ', Welcome to GracePrint');
@@ -73,14 +70,10 @@ router.post('/register', function (req, res) {
     });
 });
 
-router.get('/login', function (req, res) {
-    res.render('login.ejs');
-});
-
-router.post('/login', passport.authenticate('local',
+router.post('/login-register/login', passport.authenticate('local',
     {   //ส่วนตรงกลางที่จะทำงานก่อนการเกิด call back function ETC. check
         successRedirect: '/',
-        failureRedirect: '/login',
+        failureRedirect: '/login-register',
         successFlash: true,
         failureFlash: true,
         successFlash: 'Successfully login',

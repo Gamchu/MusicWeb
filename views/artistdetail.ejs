@@ -1,24 +1,66 @@
 <%- include ('partials/header.ejs') %>
 
-<div class="bg-head">
-    <div class="nave-textartist">
 
+    <div class="navigation">
+        <ul class="nav">
+            <li class="list">
+                <a href="/">
+                    <span class="icon">
+                        <ion-icon name="home-sharp"></ion-icon>
+                    </span>
+                    <span class="title">Home</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/search">
+                    <span class="icon">
+                        <ion-icon name="search"></ion-icon>
+                    </span>
+                    <span class="title">Search</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/follow">
+                    <span class="icon">
+                        <ion-icon name="menu"></ion-icon>
+                    </span>
+                    <span class="title">Follow</span>
+                </a>
+            </li>
+        </ul>
     </div>
-</div>
 
-<div class="container bg-content">
-    <div class="etcbar">
-        <button></button>
-        <div class="following button"></div>
-        <!-- หัวใจ -->
-    </div>
-</div>
-
-<div class="container">
-    <h3>Popular</h3>
     <div>
-        
-    </div>
-</div>
+        <div class="header-artist content-spaceing ">
+            <div class="artist-name pb-1"><%= artistde.artistname %></div>
+            <div class="artist-detail"><%= artistde.descriptartist%></div>
+            <% if(currentUser) { %>
+                <% if(faart.includes(artistde.id)) { %>
+                    <form action="/unfollow/song/<%= artistde._id %>" method="POST">
+                        <button type="submit" class="hartist">
+                            <img src="/apicture/heart.png" class="favartist">
+                        </button>
+                    </form>
+                    <% } else { %>
+                        <form action="/follow/song/<%= artistde._id %>"
+                            method="POST">
+                            <button type="submit" class="hartist">
+                                <img src="/apicture/unheart.png" class="favartist">
+                            </button>
+                        </form>
+                        <% } %>
+                            <% } else { %>
+                                <form action="/follow/song/<%= artistde._id %>" 
+                                    method="POST">
+                                    <button type="submit" class="hartist">
+                                        <img src="/apicture/unheart.png"
+                                            class="favartist">
+                                    </button>
+                                </form>
+                                <% } %>
+        </div>
+        <div class="content-artist">
 
-<%- include ('partials/footer.ejs') %>
+        </div>
+    </div>
+    <%- include ('partials/footer.ejs') %>
