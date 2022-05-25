@@ -46,7 +46,6 @@
                                 <div class="col-sm-1 box-content">
                                     <div class="card shadow-sm">
                                         <img src="<%= followlikesong.image %>" class="landing-img img-body">
-
                                         <div class="card-body p-3">
                                             <span>&nbsp;</span>
                                             <div class="d-flex">
@@ -57,29 +56,24 @@
                                                     </a>
                                                 </p>
 
-                                                <div class="play-button-music">
+                                                <div class="play-button-music" id="playing-music">
                                                     <div class="block">
-
-                                                        <div class="player-btn" id="playnow">
-
+                                                        <div class="player-btn play--btn" id="playnow">
                                                             <div class="player-btn-particles">
                                                                 <div
                                                                     class="player-btn-particle player-btn-particle--one">
                                                                 </div>
                                                             </div>
-
                                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                                 viewBox="0 0 200 200" class="player-btn-icon">
                                                                 <path class="svg-play to-play" fill="transparent"
                                                                     d="M90 50 L30 15 L30 160 L170 100 L130 75" />
                                                             </svg>
-
                                                         </div>
-
                                                         <audio id="track">
                                                             <source src="<%=followlikesong.mp3 %>" type="audio/mp3">
+                                                            <% console.log(followlikesong.mp3) %>
                                                         </audio>
-
                                                     </div>
 
                                                     <!-- Filter -->

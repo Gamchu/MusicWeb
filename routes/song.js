@@ -11,7 +11,7 @@ const express = require('express'),
         }
     }),
     imageFilter = function (req, file, callback) {
-        if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png|gif|mp3)$/i)) {
             return callback(new Error('Only jpg, jpeg, png and gif.'), false);
         }
         callback(null, true);
@@ -23,13 +23,14 @@ const express = require('express'),
     Song = require('../models/song');
 
 //รับตัวแปรที่ เรารับมจากตัว form
-router.post("/new", middleware.isLoggedIn, upload.single('image'), function (req, res) {
-    let image = '/upload/' + req.file.filename;
+router.post("/new", middleware.isLoggedIn, upload.fields([{name:"image"},{name:"mp3"}]), function (req, res) {
+    let image = '/upload/' + req.files["image"][0].filename;
     let newsongname = req.body.newsongname;
     let lyric = req.body.newsonglyrics;
     let dessong = req.body.newsongdescriptsong;
     let artist = req.body.newsongartist;
-    let newsong = { image: image, name: newsongname, lyrics: lyric, descriptsong: dessong }
+    let mp3 = '/upload/' + req.files["mp3"][0].filename;
+    let newsong = { mp3:mp3, image: image, name: newsongname, lyrics: lyric, descriptsong: dessong }
     Artist.findOne().where('artistname').equals(artist).exec(function (err, foundArtist) {
         if (err) {
             console.log(err)

@@ -33,8 +33,9 @@
         <div class="artist-image d-flex">
             <img class="artist-image-shape" src="<%= artistde.image %>">
             <div class="de-head">
-                <div class="artist-name">
+                <div class="artist-name artist-control">
                     <%= artistde.artistname %><br>
+                    
                 </div>
                 <div class="d-flex">
                     <div class="artist-detail">
@@ -115,8 +116,7 @@
                                                         <% x++ %>
                                                             <td>
                                                                 <div class="d-flex">
-                                                                    <img class="songimg-admin song--img__data img-body"
-                                                                        src="<%= ArtistSong.image %>">
+                                                                    <img class="songimg-admin song--img__data img-body" src="<%= ArtistSong.image %>">
                                                                     <a class="text-white text-decoration-none song--name__data song-body"
                                                                         href="/songs/detail/<%= ArtistSong._id %>">
                                                                         <%= ArtistSong.name %>

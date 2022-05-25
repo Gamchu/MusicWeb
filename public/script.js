@@ -104,6 +104,7 @@ for (let i = 0; i < btn2.length; i++) {
           clearInterval(xvolume);
           xvolume = setInterval(Whilesongduration, 1000);
         } else {
+          console.log(image_body[i]);
           audio[i].play();
           btn2[i].classList.remove('fa-play');
           btn2[i].classList.add('fa-pause');
@@ -113,12 +114,13 @@ for (let i = 0; i < btn2.length; i++) {
           button_playing = icon[i];
           song_playing = audio[i];
           image_control.src = image_body[i].src;
+          image_control.hidden = false;
           title_control.textContent = song_body[i].textContent;
           title_control.href = song_body[i].href;
-          artist_control.textContent = artist_body[i].textContent;
           song_time = audio[i]
-          image_control.hidden = false;
+          Whilesongduration()
           xvolume = setInterval(Whilesongduration, 1000);
+          if (artist_body[i] !== undefined) { artist_control.textContent = artist_body[i].textContent; }
         }
       }
     } else {
