@@ -57,4 +57,16 @@ router.post("/edit/:id", middleware.isLoggedIn, upload.single('image'), function
     });
 });
 
+router.delete('/:id', function (req, res) {
+    User.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            console.log(err);
+            res.redirect('/songs/edit');
+        } else {
+            req.flash('success', "User had been remove.");
+            res.redirect('/songs/edit');
+        }
+    });
+});
+
 module.exports = router;

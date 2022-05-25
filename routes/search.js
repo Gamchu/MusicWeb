@@ -49,7 +49,7 @@ router.get("/:keyword", function (req, res) {
                 if (err) {
                     console.log(err);
                 } else {
-                    Artist.find({ artistname: { $regex: keyword, $options: "i" } }).exec(function (err, SearchArtist) {
+                    Artist.find({ artistname: { $regex: keyword, $options: "i" } }).limit(1).exec(function (err, SearchArtist) {
                         if (err) {
                             console.log(err);
                         } else {
