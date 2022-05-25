@@ -58,7 +58,7 @@
                     </div>
                     <div class="home-music">
                         <div class="row row-col-1 row-cols-sm-2 row-cols-md-6 g-4">
-                            <% allsong.forEach(function(allsong){ %>
+                            <% allsong.slice(0,10).forEach(function(allsong){ %>
                                 <div class="col-sm-1 box-content">
                                     <div class="card shadow-sm">
                                         <img src="<%= allsong.image %>" class="landing-img img-body">
@@ -156,30 +156,30 @@
                     </div>
                     <div class="home-music">
                         <div class="row row-col-1 row-cols-sm-2 row-cols-md-6 g-4">
-                            <% allartist.forEach(function(allartist){ %>
+                            <% otherartist.forEach(function(otherartist){ %>
                                 <div class="col-sm-1 box-content">
                                     <div class="card shadow-sm">
-                                        <img src="<%= allartist.image %>" class="landing-img">
+                                        <img src="<%= otherartist.image %>" class="landing-img">
 
                                         <div class="card-body">
                                             <span>&nbsp;</span>
                                             <div class="d-flex">
                                                 <p class="card-text">
-                                                    <a href="/artist/detail/<%= allartist._id %>"
+                                                    <a href="/artist/detail/<%= otherartist._id %>"
                                                         class="text-decoration-none Sname">
-                                                        <%= allartist.artistname %>
+                                                        <%= otherartist.artistname %>
                                                     </a>
                                                 </p>
                                                 <% if(currentUser) { %>
-                                                    <% if(fauser.includes(allartist._id)) { %>
-                                                        <form action="/unfollow/artist/<%= allartist._id %>"
+                                                    <% if(fauser.includes(otherartist._id)) { %>
+                                                        <form action="/unfollow/artist/<%= otherartist._id %>"
                                                             method="POST">
                                                             <button type="submit" class="favbtn">
                                                                 <img src="/apicture/heart.png" class="heartfav">
                                                             </button>
                                                         </form>
                                                         <% } else { %>
-                                                            <form action="/follow/artist/<%= allartist._id %>"
+                                                            <form action="/follow/artist/<%= otherartist._id %>"
                                                                 method="POST">
                                                                 <button type="submit" class="favbtn">
                                                                     <img src="/apicture/unheart.png" class="heartfav">
@@ -187,7 +187,7 @@
                                                             </form>
                                                             <% } %>
                                                                 <% } else { %>
-                                                                    <form action="/follow/artist/<%= allartist._id %>"
+                                                                    <form action="/follow/artist/<%= otherartist._id %>"
                                                                         method="POST">
                                                                         <button type="submit" class="favbtn">
                                                                             <img src="/apicture/unheart.png"

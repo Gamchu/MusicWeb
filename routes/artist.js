@@ -43,7 +43,7 @@ router.post("/new", middleware.isLoggedIn, upload.single('image'), function (req
     })
 });
 
-router.get('/detail/:id', function (req, res) {
+router.get('/detail/:id', middleware.isLoggedIn, function (req, res) {
     Artist.findById(req.params.id).populate('song').exec(function (err, artistdetail) {
         if (err) {
             console.log(err);
