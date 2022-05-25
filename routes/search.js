@@ -41,15 +41,15 @@ router.get("/Allsong/:keyword", function (req, res) {
 
 router.get("/:keyword", function (req, res) {
     let keyword = req.params.keyword;
-    Song.find({ name: { $regex: req.params.keyword, $options: "i" } }).populate('artist').exec(function (err, SearchSong) {
+    Song.find({ name: { $regex: keyword, $options: "i" } }).populate('artist').exec(function (err, SearchSong) {
         if (err) {
             console.log(err);
         } else {
-            Song.find({ name: { $regex: req.params.keyword, $options: "i" } }).limit(4).populate('artist').exec(function (err, SomeSong) {
+            Song.find({ name: { $regex: keyword, $options: "i" } }).limit(4).populate('artist').exec(function (err, SomeSong) {
                 if (err) {
                     console.log(err);
                 } else {
-                    Artist.find({ artistname: { $regex: req.params.keyword, $options: "i" } }).exec(function (err, SearchArtist) {
+                    Artist.find({ artistname: { $regex: keyword, $options: "i" } }).exec(function (err, SearchArtist) {
                         if (err) {
                             console.log(err);
                         } else {
