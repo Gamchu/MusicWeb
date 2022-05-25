@@ -57,7 +57,7 @@
               <% if(SomeSong.length> 0){ %>
                 <thead class="title-top">
                   <tr class="head-tr">
-                    <th scope="col">
+                    <th scope="col" class="position-tt">
                       Title
                       <i class="fa-solid fa-sort"></i>
                     </th>
@@ -98,9 +98,7 @@
                           </td>
                           <td>
                             <div>
-                              <span id="songduration">
-
-                              </span>
+                              <span class="Song-duration"></span>
                             </div>
                           </td>
                           <td>
@@ -115,13 +113,12 @@
                                   </audio>
                                 </a>
                                 <% } else { %>
-                                  <a>
-                                    <i class="fa-solid fa-play play--btn" id="table--playicon">
-                                      <audio id="track">
-                                        <source src="<%=SomeSong.mp3 %>" type="audio/mp3">
-                                      </audio>
-                                    </i>
-                                  </a>
+                                  <div>
+                                    <div class="fa-solid fa-play play--search" id="table--playicon"></div>
+                                    <audio id="track">
+                                      <source src="<%=SomeSong.mp3 %>" type="audio/mp3">
+                                    </audio>
+                                  </div>
                                   <% } %>
                                     <% if(usersong.includes(SomeSong._id)){ %>
                                       <form action="/unfollow/song/<%= SomeSong._id %>" method="POST">

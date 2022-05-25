@@ -2,27 +2,15 @@
     overflow-y: hidden;
 }
 
-.ADMIN {
-    position: relative;
-    z-index: 200;
-    margin-left: 800px;
-    margin-bottom: 10px;
+.overflow-x {
+    overflow-x: hidden
 }
 
-/* sidebar menu */
-.navigation {
-    top: 0;
+.ADMIN {
+    position: relative;
     z-index: 100;
-    position: fixed;
-    height: 100%;
-    width: 250px;
-    background: #202020;
-    box-shadow: 10px 0 0 #7285A5;
-    border-left: 10px solid #202020;
-    overflow-x: hidden;
-    font-family: 'Dancing Script', cursive;
-    font-family: 'Poppins', sans-serif;
-    font-family: 'Quicksand', sans-serif;
+    margin-left: 800px;
+    margin-bottom: 10px;
 }
 
 /* scrollcar track */
@@ -43,13 +31,30 @@
     background-color: #555;
 }
 
-.favbtn, .hartist{
+.favbtn,
+.hartist {
     border: 0;
     background-color: rgba(0, 0, 0, 0);
 }
 
 .nav {
     margin-top: 80px;
+}
+
+/* sidebar menu */
+.navigation {
+    top: 0;
+    z-index: 100;
+    position: fixed;
+    height: 100%;
+    width: 250px;
+    background: #202020;
+    box-shadow: 10px 0 0 #7285A5;
+    border-left: 10px solid #202020;
+    overflow-x: hidden;
+    font-family: 'Dancing Script', cursive;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Quicksand', sans-serif;
 }
 
 .navigation ul {
@@ -133,12 +138,16 @@ body {
     /* font-family: 'Roboto', sans-serif; */
 }
 
+.position-content {
+    margin-left: 275px;
+    /* margin-bottom: 30px; */
+}
+
 .bg-content {
     background-color: rgba(0, 0, 0, .3);
     padding: 30px;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-left: 275px;
 }
 
 .box-content {
@@ -296,9 +305,9 @@ body {
 .wrapper h1,
 .title-head {
     margin-top: 5rem;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     font-family: 'Roboto';
-    margin-left: 20rem;
+    margin-left: 300px;
     text-align: left;
     color: white;
     font-weight: bold;
@@ -314,7 +323,7 @@ body {
     font-size: 3rem;
     color: white;
     font-weight: bold;
-    margin-left: 20rem;
+    margin-left: 30px;
     margin-top: 20px;
     margin-bottom: 20px;
     text-shadow: 10px 10px 10px rgba(0, 0, 0, .3);
@@ -336,8 +345,8 @@ body {
 
 .landing-img {
     object-fit: cover;
-    /* height: 200px;
-    width: 200px; */
+    height: 226px;
+    /* width: 200px; */
 }
 
 .card,
@@ -389,9 +398,6 @@ body {
     font-size: 1.45rem;
     font-family: 'Akshar', sans-serif;
     position: absolute;
-    white-space: nowrap;
-    width: inherit;
-    text-overflow: ellipsis;
 }
 
 .Sname {
@@ -399,6 +405,11 @@ body {
     left: 5px;
     bottom: 40px;
     color: white;
+    white-space: nowrap;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .Aname {
@@ -407,6 +418,11 @@ body {
     font-size: 1.25rem;
     left: 5px;
     bottom: 10px;
+    white-space: nowrap;
+    display: block;
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .btn-play {
@@ -452,7 +468,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
+    /* position: sticky; */
     width: 100vw;
     height: 7rem;
     bottom: 0;
@@ -570,7 +586,8 @@ i:hover {
     accent-color: #ccc4;
 }
 
-.progress-music, .progress-volume {
+.progress-music,
+.progress-volume {
     position: relative;
     height: 100%;
     width: 100%;
@@ -697,6 +714,11 @@ i:hover {
     font-size: 1.5rem;
     margin-top: 10px;
     margin-left: 10px;
+}
+
+.position-tt {
+    position: relative;
+    left: 10px;
 }
 
 .number {
@@ -848,14 +870,11 @@ i:hover {
 
 .name-artsongde {
     position: relative;
-    top: 270px;
+    left: 90px;
 }
 
 .image-pf {
-    position: absolute;
     border-radius: 50%;
-    top: 80px;
-    left: 280px;
     z-index: 50;
     width: 300px;
     height: 300px;
@@ -865,6 +884,13 @@ i:hover {
     padding: 15px;
     flex: 30%;
     box-shadow: 5px 10px 8px #000000;
+}
+
+.pic-de-position {
+    position: fixed;
+    top: 80px;
+    left: 290px;
+    /* transform: translate(-50%,-50%); */
 }
 
 .bg-lyrics {
@@ -933,6 +959,10 @@ i:hover {
     font-size: 3rem;
     color: #F48D14;
     text-shadow: 1px 1px 2px pink;
+}
+
+.show_user_canedit {
+    margin-bottom: 100px;
 }
 
 /* play music icon */
@@ -1356,11 +1386,17 @@ i:hover {
     margin-top: 50px;
 }
 
+.de-head {
+    padding-left: 3rem;
+}
+
 .artist-name {
     font-family: 'Roboto';
     font-weight: 800;
-    font-size: 96px;
+    font-size: 128px;
+    color: white;
     padding-top: 6rem;
+    padding-bottom: 2rem;
     visibility: visible;
     width: 100%;
     line-height: 96px;
@@ -1368,17 +1404,113 @@ i:hover {
 }
 
 .artist-detail {
+    /* position: absolute; */
     font-family: 'Roboto';
     font-weight: 400;
-    font-size: 16px;
+    font-size: 24px;
+    color: w;
     display: inline;
+    padding-right: 3rem;
 }
 
-.favartist{
+.favartist {
     height: 30px;
 }
 
 .content-spaceing {
     padding: 0 32px;
     max-height: none;
+}
+
+.artist-image {}
+
+.artist-image-shape {
+    clip-path: circle(79.6% at 20% 28%);
+    height: 24%;
+    width: 24%;
+}
+
+.position-bottom {
+    padding-bottom: 120px;
+}
+
+/* Profile page */
+.profile-content {
+    margin-left: 260px;
+}
+
+.Head-content {
+    background-color: rgba(0, 0, 0, 0.4);
+    margin-bottom: 50px;
+    height: 430px;
+}
+
+.header-profile {
+    font-family: 'Akshar', sans-serif;
+    font-weight: 400;
+    font-size: 56px;
+    color: white;
+    padding: 10px;
+    padding-left: 30px;
+}
+
+.b12 {
+    padding-left: 35px;
+}
+
+.profile-username {
+    font-family: 'Roboto';
+    font-weight: 700;
+    font-size: 64px;
+    color: white;
+    margin-bottom: 0;
+}
+
+.profile-firstname-last {
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: 16px;
+    color: white;
+    margin-left: 5px;
+    margin-bottom: 0;
+    /* padding-bottom: 20px; */
+}
+
+.profile-email{
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: 16px;
+    color: white;
+    margin-left: 5px;
+    margin-bottom: 0;
+}
+
+.profile-pic-position {
+    padding-left: 100px;
+}
+
+.img-profile {
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+}
+
+.btn-edit-profile {
+    color: white;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.size{
+    height: 36px;
+    width: 36px;
+}
+
+.p-h{
+    margin-left: 30px;
+}
+
+.favsong-profile {
+    margin-left: 250px;
 }

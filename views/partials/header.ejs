@@ -31,7 +31,7 @@
 	<title>Yfitops</title>
 </head>
 
-<body>
+<body class="overflow-x">
 	<% if (!currentUser) { %>
 		<div class="nav-topbar">
 			<div class="box bg-3">
@@ -52,7 +52,7 @@
 					<div class="profile-bg">
 						<img src="/apicture/user.png" width="30px" height="30px">
 					</div>
-					<a class="text-decoration-none" href="/login">
+					<a class="text-decoration-none" href="/user/<%= currentUser._id %>">
 						<button class="button button--moema button--inverted button--text-thick button--size-s">
 							<%= currentUser.username %>
 						</button>

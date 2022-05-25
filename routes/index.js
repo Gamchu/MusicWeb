@@ -1,11 +1,10 @@
-const artist = require('../models/artist');
-
 const express = require('express'),
     router = express.Router(),
     User = require('../models/user'),
     Song = require('../models/song'),
     Artist = require('../models/artist'),
     passport = require('passport'),
+    // facebookStrategy = require('passport-facebook').Strategy
     middleware = require('../middleware');
 
 //ทุกคนที่เข้ามาจะเข้ามาหน้านี้
@@ -18,7 +17,7 @@ router.get("/", function (req, res) {
                 if (err) {
                     console.log(err);
                 } else {
-                    Artist.aggregate([{ $sample: { size: 3 } }]).exec(function (err, someartist) {
+                    Artist.aggregate([{ $sample: { size: 5 } }]).exec(function (err, someartist) {
                         if (err) {
                             console.log(err);
                         } else {
@@ -52,7 +51,7 @@ router.post('/login-register/register', function (req, res) {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
-        password: req.body.password
+        // password: req.body.password
     });
     if (req.body.adminCode === 'Admin') {
         newUser.isAdmin = true;

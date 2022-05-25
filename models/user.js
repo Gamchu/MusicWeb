@@ -2,12 +2,13 @@ const   mongoose = require('mongoose'),
         passportLocalMongoose = require('passport-local-mongoose');
 
 const userSchema = new mongoose.Schema({
+    image: String,
     username: String,
     firstname: String,
     lastname: String,
     email: String,
     password: String,
-    profileImage: String,
+    date: {type: Date, default:new Date()},
     favsong: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Song'

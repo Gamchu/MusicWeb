@@ -1,0 +1,191 @@
+<%- include ('../partials/headeronly.ejs') %>
+
+    <div class="navigation">
+        <ul class="nav">
+            <li class="list">
+                <a href="/">
+                    <span class="icon">
+                        <ion-icon name="home-sharp"></ion-icon>
+                    </span>
+                    <span class="title">Home</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/search">
+                    <span class="icon">
+                        <ion-icon name="search"></ion-icon>
+                    </span>
+                    <span class="title">Search</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/follow">
+                    <span class="icon">
+                        <ion-icon name="menu"></ion-icon>
+                    </span>
+                    <span class="title">Follow</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="profile-content">
+        <div class="Head-content">
+            <div class="header-profile">PROFiLE</div>
+            <div class="profile-pic-position d-block">
+                <img src="<%= Userde.image %>" class="img-profile">
+                <div class="d-inline-block b12">
+                    <p class="profile-username">
+                        <%= Userde.username %>
+                    </p>
+                    <p class="profile-firstname-last">
+                        <%= Userde.firstname %>
+                            <%= Userde.lastname %>
+                    </p>
+                    <p class="profile-email">
+                        <%= Userde.email %>
+                    </p>
+                </div>
+            </div>
+
+            <div>
+                <% let modal=0 %>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-edit-profile" data-bs-toggle="modal"
+                        data-bs-target="#usermodal<%= modal%>">
+                        <ion-icon class="size" name="settings-outline"></ion-icon>
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="usermodal<%= modal%>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <% modal++%>
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Edit User data</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/user/edit/<%= Userde._id %>" method="POST"
+                                            enctype="multipart/form-data">
+                                            <div class="mb-3">
+                                                <label class="form-label">First Name</label>
+                                                <input type="text" class="form-control" name="first_name"
+                                                    placeholder="<%= Userde.firstname %>" ,
+                                                    value="<%= Userde.firstname %>">
+                                            </div>
+
+                                            <label for="exampleDataList" class="form-label">Last Name</label>
+                                            <input class="form-control" list="datalistOptions" name="last_name"
+                                                id="exampleDataList" placeholder="<%= Userde.lastname %>" ,
+                                                value="<%= Userde.lastname %>">
+
+
+                                            <label for="exampleDataList" class="form-label">Email</label>
+                                            <input class="form-control" list="datalistOptions" name="email"
+                                                id="exampleDataList" placeholder="<%= Userde.email %>" ,
+                                                value="<%= Userde.email %>">
+
+
+                                            <div class="mb-3">
+                                                <label for="formFile" class="form-label">Profile
+                                                    Picture</label>
+                                                <input class="form-control" name="image" type="file" id="formFile"
+                                                    accept="'image/*">
+                                            </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save
+                                            changes</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+        </div>
+
+
+        <!-- Fav song -->
+        <div class="title-head p-h">FAVORITE</div>
+        <% if(favsong==0) { %>
+            <h1 class="caution">Don't have favorite song to show here! <a href="/">Add</a> favorite songs to show.</h1>
+            <% } else { %>
+                <div class="home-music">
+                    <div class="row row-col-1 row-cols-sm-2 row-cols-md-6 g-4 bg-content">
+                        <% favsong.forEach(function(favsong){ %>
+                            <div class="col-sm-1 box-content">
+                                <div class="card shadow-sm">
+                                    <img src="<%= favsong.image %>" class="landing-img img-body">
+
+                                    <div class="card-body p-3">
+                                        <span>&nbsp;</span>
+                                        <div class="d-flex">
+                                            <p class="card-text">
+                                                <a href="/songs/detail/<%= favsong._id %>"
+                                                    class="text-decoration-none Sname song-body">
+                                                    <%= favsong.name %>
+                                                </a>
+                                            </p>
+
+                                            <div class="play-button-music">
+                                                <div class="block">
+
+                                                    <div class="player-btn" id="playnow">
+
+                                                        <div class="player-btn-particles">
+                                                            <div class="player-btn-particle player-btn-particle--one">
+                                                            </div>
+                                                        </div>
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"
+                                                            class="player-btn-icon">
+                                                            <path class="svg-play to-play" fill="transparent"
+                                                                d="M90 50 L30 15 L30 160 L170 100 L130 75" />
+                                                        </svg>
+
+                                                    </div>
+
+                                                    <audio id="track">
+                                                        <source src="<%=favsong.mp3 %>" type="audio/mp3">
+                                                    </audio>
+
+                                                </div>
+
+                                                <!-- Filter -->
+                                                <svg class="svg-hidden" xmlns="http://www.w3.org/2000/svg"
+                                                    version="1.1">
+                                                    <defs>
+                                                        <filter id="fancy-goo">
+                                                            <feGaussianBlur in="SourceGraphic" stdDeviation="10"
+                                                                result="blur" />
+                                                            <feColorMatrix in="blur" mode="matrix"
+                                                                values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+                                                                result="goo" />
+                                                            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+                                                        </filter>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+
+                                            <div class="fav-heart">
+                                                <form action="/unfollow/song/<%= favsong._id %>" method="POST">
+                                                    <button type="submit" class="favbtn">
+                                                        <img src="/apicture/heart.png" class="heartfav">
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }); %>
+                    </div>
+                </div>
+                <% } %>
+    </div>
+    <%- include ('../partials/footeronly.ejs') %>

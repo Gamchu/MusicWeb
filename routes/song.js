@@ -2,7 +2,6 @@ const express = require('express'),
     router = express.Router(),
     multer = require('multer'),
     path = require('path'),
-    Artist = require('../models/artist'),
     storage = multer.diskStorage({
         destination: function (req, file, callback) {
             callback(null, './public/upload/');
@@ -19,6 +18,8 @@ const express = require('express'),
     },
     upload = multer({ storage: storage, fileFilter: imageFilter }),
     middleware = require('../middleware'),
+    Artist = require('../models/artist'),
+    User = require('../models/user'),
     Song = require('../models/song');
 
 //รับตัวแปรที่ เรารับมจากตัว form
@@ -76,17 +77,23 @@ router.get('/edit', function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            Song.find({}).populate('artist').exec(function (err, allsongsedit){
+            Song.find({}).populate('artist').exec(function (err, allsongsedit) {
                 if (err) {
                     console.log(err);
                 } else {
-                    res.render('edit.ejs', { songedit: allsongsedit ,artistedit: allartistname});
-                    // console.log(allsongsedit);
+                    User.find({}).exec(function (err, allUser) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.render('edit.ejs', { allUser: allUser, songedit: allsongsedit, artistedit: allartistname });
+                            // console.log(allsongsedit);
+                        }
+                    });
                 }
-            })
+            });
         }
-    })
-})
+    });
+});
 
 //Edit 
 router.post("/edit/:id", middleware.isLoggedIn, upload.single('image'), function (req, res) {
@@ -94,8 +101,8 @@ router.post("/edit/:id", middleware.isLoggedIn, upload.single('image'), function
     let lyric = req.body.song_edit_lyrics;
     let dessong = req.body.song_edit_description;
     let artist = req.body.song_edit_artist;
-    let editsong = {name: newsongname, lyrics: lyric, descriptsong: dessong }
-    if(req.file){
+    let editsong = { name: newsongname, lyrics: lyric, descriptsong: dessong }
+    if (req.file) {
         editsong.image = '/upload/' + req.file.filename;
     }
     Artist.findOne().where('artistname').equals(artist).exec(function (err, foundArtist) {
@@ -116,13 +123,26 @@ router.post("/edit/:id", middleware.isLoggedIn, upload.single('image'), function
     })
 });
 
-router.delete('/:id', function(req,res){
-    Song.findByIdAndRemove(req.params.id, function(err){
-        if(err){
+router.delete('/:id', function (req, res) {
+    Song.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
             console.log(err);
             res.redirect('/songs/edit');
         } else {
             req.flash('success', "Song had been remove.");
+            res.redirect('/songs/edit');
+        }
+    });
+});
+
+//delete user
+router.delete('/:id', function (req, res) {
+    User.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            console.log(err);
+            res.redirect('/songs/edit');
+        } else {
+            req.flash('success', "User had been remove.");
             res.redirect('/songs/edit');
         }
     });

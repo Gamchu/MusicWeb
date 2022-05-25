@@ -50,9 +50,11 @@
                 </div>
             </section>
             <% } %>
+            <div class="position-content">
                 <div class="album bg-content">
                     <div class="box-head">
                         <div class="fw-light">Today music</div>
+                        <!-- <a class="seeall" href="/songs/Allsong/">SEE ALL</a> -->
                     </div>
                     <div class="home-music">
                         <div class="row row-col-1 row-cols-sm-2 row-cols-md-6 g-4">
@@ -132,9 +134,9 @@
                                                                     </form>
                                                                     <% } %>
                                             </div>
-                                            <p class="card-text Aname art-body">
+                                            <span class="card-text Aname art-body">
                                                 <%= allsong.artist.artistname %>
-                                            </p>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -168,12 +170,6 @@
                                                         <%= allartist.artistname %>
                                                     </a>
                                                 </p>
-                                                <!-- <div class="btn-play" onclick="playVideo();">
-                                            <div class="circle">
-                                                <div class="triangle"></div>
-                                            </div>
-                                        </div> -->
-
                                                 <% if(currentUser) { %>
                                                     <% if(fauser.includes(allartist._id)) { %>
                                                         <form action="/unfollow/artist/<%= allartist._id %>"
@@ -210,7 +206,5 @@
                         </div>
                     </div>
                 </div>
-
-
-
+            </div>
                 <%- include ('partials/footer.ejs') %>

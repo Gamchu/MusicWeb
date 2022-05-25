@@ -50,7 +50,7 @@
                                     <th scope="col">
                                         #
                                     </th>
-                                    <th scope="col">
+                                    <th scope="col" class="position-tt">
                                         Title
                                         <i class="fa-solid fa-sort"></i>
                                     </th>
@@ -83,7 +83,7 @@
                                                             <div class="d-flex">
                                                                 <img class="songimg-admin song--img__data img-body"
                                                                     src="<%= SearchSong.image %>">
-                                                                <a class="text-white text-decoration-none song--name__data"
+                                                                <a class="text-white text-decoration-none song--name__data song-body"
                                                                     href="/songs/detail/<%= SearchSong._id %>">
                                                                     <%= SearchSong.name %>
                                                                 </a>
@@ -91,7 +91,7 @@
                                                         </td>
                                                         <td>
                                                             <div class="song--artist__data">
-                                                                <a class="text-white text-decoration-none song-body"
+                                                                <a class="text-white text-decoration-none art-body"
                                                                     href="/artist/<%= SearchSong.artist._id %>">
                                                                     <%= SearchSong.artist.artistname %>
                                                                 </a>
@@ -99,7 +99,7 @@
                                                         </td>
                                                         <td>
                                                             <div class="pt-4">
-                                                                <span class="end-time"></span>
+                                                                <span class="Song-duration"></span>
                                                             </div>
                                                         </td>
                                                         <td>
@@ -109,23 +109,27 @@
                                                                         class="text-decoration-none star-color">
                                                                         <i class="fa-solid fa-play"></i>
                                                                     </a>
-                                                                    <div id="table--playicon">
-                                                                        <audio id="track">
-                                                                            <source src="<%=SearchSong.mp3 %>" type="audio/mp3">
+                                                                    <div>
+                                                                        <div class="fa-solid fa-play play--search"
+                                                                            id="table--playicon"></div>
+                                                                        <audio id="track" preload="metadata">
+                                                                            <source src="<%=SearchSong.mp3 %>"
+                                                                                type="audio/mp3">
                                                                         </audio>
                                                                     </div>
                                                                     <% } else { %>
                                                                         <div>
-                                                                            <i class="fa-solid fa-play"
-                                                                                id="table--playicon"></i>
-                                                                                <audio id="track">
-                                                                                    <source src="<%=SearchSong.mp3 %>" type="audio/mp3">
-                                                                                </audio>
+                                                                            <div class="fa-solid fa-play play--search"
+                                                                                id="table--playicon"></div>
+                                                                            <audio id="track">
+                                                                                <source src="<%=SearchSong.mp3 %>"
+                                                                                    type="audio/mp3">
+                                                                            </audio>
                                                                         </div>
                                                                         <% } %>
                                                                             <% if(usersong.includes(SearchSong._id)){ %>
                                                                                 <form
-                                                                                    action="/follow/song/<%= SearchSong._id %>"
+                                                                                    action="/unfollow/song/<%= SearchSong._id %>"
                                                                                     method="POST">
                                                                                     <button type="submit"
                                                                                         class="favbtn">

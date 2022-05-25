@@ -77,10 +77,12 @@
 
                                     </td>
                                     <td>Admin</td>
-                                    <td>3.12</td>
+                                    <td>
+                                        <%= songedit.date.getDay() + "/" + songedit.date.getMonth() + "/" + songedit.date.getFullYear() %>
+                                    </td>
                                     <td>
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn btn-light" data-bs-toggle="modal"
                                             data-bs-target="#songsmodal<%= modal%>">
                                             <ion-icon name="create"></ion-icon>
                                         </button>
@@ -210,7 +212,7 @@
                                     <td>Admin</td>
                                     <td>
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-light" data-bs-toggle="modal"
                                             data-bs-target="#artistmodal<%= modal%>">
                                             <ion-icon name="create"></ion-icon>
                                         </button>
@@ -267,8 +269,59 @@
                                     </td>
                                     <td>
                                         <form action="/artist/<%= artistedit._id %>?_method=DELETE" method="POST">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </td>
+                            </tr>
+                            <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- User -->
+    
+    <div class="head-edit">
+        User
+    </div>
+
+    <div class="show_soung_canedit">
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">USER</th>
+                    <th scope="col">DELETE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%modal=0 %>
+                    <% x=1 %>
+                        <% allUser.forEach(function(allUser){ %>
+                            <tr>
+                                <th scope="row">
+                                    <%= x %>
+                                </th>
+                                <% x++ %>
+                                    <td class="title_in_edit">
+                                        <div class="all_edit_de d-flex">
+                                            <span>
+                                                <img class="image_user_edit" src="<%= allUser.image %>">
+                                            </span>
+
+                                            <div class="name_user_edit">
+                                                <div>
+                                                    <span class="name_in_edit">
+                                                        <%= allUser.username %>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <form action="/user/<%= allUser._id %>?_method=DELETE" method="POST">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
                                     </td>
                             </tr>
                             <% }); %>

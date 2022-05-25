@@ -44,22 +44,27 @@ router.post("/new", middleware.isLoggedIn, upload.single('image'), function (req
 });
 
 router.get('/detail/:id', function (req, res) {
-    Artist.findById(req.params.id).exec(function (err, artistdetail) {
+    Artist.findById(req.params.id).populate('song').exec(function (err, artistdetail) {
         if (err) {
             console.log(err);
         } else {
-            if (req.isAuthenticated()) {
-                User.findById(req.user._id, function (err, founduser) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        res.render('artistdetail.ejs', { artistde: artistdetail, faart: founduser.favartist, fasong: founduser.favsong });
-                        // console.log(founduser);
-                    }
-                })
+            if (err) {
+                console.log(err);
             } else {
-                res.render('artistdetail.ejs', { artistde: artistdetail, });
+                if (req.isAuthenticated()) {
+                    User.findById(req.user._id, function (err, founduser) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.render('artistdetail.ejs', { artistde: artistdetail, faart: founduser.favartist, fasong: founduser.favsong });
+                            // console.log(founduser);
+                        }
+                    })
+                } else {
+                    res.render('artistdetail.ejs', { artistde: artistdetail });
+                }
             }
+
         }
     });
 });

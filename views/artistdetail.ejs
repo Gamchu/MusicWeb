@@ -1,6 +1,5 @@
 <%- include ('partials/header.ejs') %>
 
-
     <div class="navigation">
         <ul class="nav">
             <li class="list">
@@ -30,37 +29,164 @@
         </ul>
     </div>
 
-    <div>
-        <div class="header-artist content-spaceing ">
-            <div class="artist-name pb-1"><%= artistde.artistname %></div>
-            <div class="artist-detail"><%= artistde.descriptartist%></div>
-            <% if(currentUser) { %>
-                <% if(faart.includes(artistde.id)) { %>
-                    <form action="/unfollow/song/<%= artistde._id %>" method="POST">
-                        <button type="submit" class="hartist">
-                            <img src="/apicture/heart.png" class="favartist">
-                        </button>
-                    </form>
-                    <% } else { %>
-                        <form action="/follow/song/<%= artistde._id %>"
-                            method="POST">
-                            <button type="submit" class="hartist">
-                                <img src="/apicture/unheart.png" class="favartist">
-                            </button>
-                        </form>
-                        <% } %>
-                            <% } else { %>
-                                <form action="/follow/song/<%= artistde._id %>" 
-                                    method="POST">
-                                    <button type="submit" class="hartist">
-                                        <img src="/apicture/unheart.png"
-                                            class="favartist">
+    <div class="header-artist content-spaceing">
+        <div class="artist-image d-flex">
+            <img class="artist-image-shape" src="<%= artistde.image %>">
+            <div class="de-head">
+                <div class="artist-name">
+                    <%= artistde.artistname %><br>
+                </div>
+                <div class="d-flex">
+                    <div class="artist-detail">
+                        <%= artistde.descriptartist%>
+                    </div>
+                    <div class="heart-art">
+                        <% if(currentUser) { %>
+                            <% if(faart.includes(artistde._id)) { %>
+                                <form action="/unfollow/artist/<%= artistde._id %>" method="POST">
+                                    <button type="submit" class="favbtn">
+                                        <img src="/apicture/heart.png" class="favartist">
                                     </button>
                                 </form>
-                                <% } %>
-        </div>
-        <div class="content-artist">
-
+                                <% } else { %>
+                                    <form action="/follow/artist/<%= artistde._id %>" method="POST">
+                                        <button type="submit" class="favbtn">
+                                            <img src="/apicture/unheart.png" class="favartist">
+                                        </button>
+                                    </form>
+                                    <% } %>
+                                        <% } else { %>
+                                            <form action="/follow/artist/<%= artistde._id %>" method="POST">
+                                                <button type="submit" class="favbtn">
+                                                    <img src="/apicture/unheart.png" class="favartist">
+                                                </button>
+                                            </form>
+                                            <% } %>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="content-artist">
+        <% let nub=1 %>
+            <% if(artistde.song.length> 0){ %>
+                <div class="album mt-2 search-allsong-result">
+                    <div class="container-fluid position-bottom">
+                        <div class="d-flex">
+                            <h1 class="title-search-head bg-search">SONGS
+                                <span class="thinword">(<%= artistde.song.length %>)</span>
+                            </h1>
+                        </div>
+                        <table class="bg-search text-white mb-0 sortable">
+                            <% if(artistde.song.length> 0){ %>
+                                <thead class="title-top">
+                                    <tr class="head-tr">
+                                        <th scope="col">
+                                            &nbsp#
+                                        </th>
+                                        <th scope="col" class="position-tt">
+                                            TITLE
+                                            <i class="fa-solid fa-sort"></i>
+                                        </th>
+                                        <th scope="col">
+                                            DATE ADDED
+                                            <i class="fa-solid fa-sort"></i>
+                                        </th>
+                                        <th scope="col">
+                                            <i class="fa-solid fa-sort"></i>
+                                            <i class="fa-solid fa-clock"></i>
+                                        </th>
+                                        <th scope="col">
+                                            <i class="font-weight-normal">CONTROL</i>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <% } %>
+                                    <tbody>
+                                        <% x=1 %>
+                                            <% artistde.song.forEach(function(ArtistSong){ %>
+                                                <tr>
+                                                    <% nub++ %>
+                                                        <td>
+                                                            <div class="number">
+                                                                <%= x %>
+                                                            </div>
+                                                        </td>
+                                                        <% x++ %>
+                                                            <td>
+                                                                <div class="d-flex">
+                                                                    <img class="songimg-admin song--img__data img-body"
+                                                                        src="<%= ArtistSong.image %>">
+                                                                    <a class="text-white text-decoration-none song--name__data song-body"
+                                                                        href="/songs/detail/<%= ArtistSong._id %>">
+                                                                        <%= ArtistSong.name %>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <%= ArtistSong.date %>
+                                                            </td>
+                                                            <td>
+                                                                <div class="pt-4">
+                                                                    <span class="Song-duration"></span>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="option my-4 mx-2 d-flex">
+                                                                    <% if(!currentUser){ %>
+                                                                        <a href="/login"
+                                                                            class="text-decoration-none star-color">
+                                                                            <i class="fa-solid fa-play"></i>
+                                                                        </a>
+                                                                        <div>
+                                                                            <div class="fa-solid fa-play play--search"
+                                                                                id="table--playicon"></div>
+                                                                            <audio id="track" preload="metadata">
+                                                                                <source src="<%=ArtistSong.mp3 %>"
+                                                                                    type="audio/mp3">
+                                                                            </audio>
+                                                                        </div>
+                                                                        <% } else { %>
+                                                                            <div>
+                                                                                <div class="fa-solid fa-play play--search"
+                                                                                    id="table--playicon"></div>
+                                                                                <audio id="track">
+                                                                                    <source src="<%=ArtistSong.mp3 %>"
+                                                                                        type="audio/mp3">
+                                                                                </audio>
+                                                                            </div>
+                                                                            <% } %>
+                                                                                <% if(fasong.includes(ArtistSong._id)) {
+                                                                                    %>
+                                                                                    <form
+                                                                                        action="/unfollow/song/<%= ArtistSong._id %>"
+                                                                                        method="POST">
+                                                                                        <button type="submit"
+                                                                                            class="favbtn">
+                                                                                            <img src="/apicture/heart.png"
+                                                                                                class="searchfav">
+                                                                                        </button>
+                                                                                    </form>
+                                                                                    <% } else { %>
+                                                                                        <form
+                                                                                            action="/follow/song/<%= ArtistSong._id %>"
+                                                                                            method="POST">
+                                                                                            <button type="submit"
+                                                                                                class="favbtn">
+                                                                                                <img src="/apicture/unheart.png"
+                                                                                                    class="searchfav">
+                                                                                            </button>
+                                                                                        </form>
+                                                                                        <% } %>
+                                                                </div>
+                                                            </td>
+                                                </tr>
+                                                <% }) %>
+                                    </tbody>
+                        </table>
+                    </div>
+                </div>
+                <% } %>
+    </div>
+
     <%- include ('partials/footer.ejs') %>
