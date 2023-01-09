@@ -1,3 +1,3 @@
 ﻿# music
-# Front-end Ejs css javascript
-# Back-end NoSql
+Front-end Ejs css javascript
+Back-end NoSql
